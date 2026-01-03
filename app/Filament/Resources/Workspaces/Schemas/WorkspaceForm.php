@@ -11,9 +11,6 @@ class WorkspaceForm
     {
         return $schema
             ->components([
-                TextInput::make('owner_id')
-                    ->required()
-                    ->numeric(),
                 TextInput::make('name')
                     ->required(),
             ]);
