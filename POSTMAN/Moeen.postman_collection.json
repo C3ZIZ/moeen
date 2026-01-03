@@ -1,1177 +1,1536 @@
 {
-  "info": {
-    "name": "Moeen API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "version": {
-      "major": 1,
-      "minor": 0,
-      "patch": 0
-    }
-  },
-  "item": [
-    {
-      "name": "Auth",
-      "item": [
-        {
-          "name": "Register User A",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}{{api_prefix}}/auth/register",
-              "host": ["{{base_url}}"],
-              "path": ["{{api_prefix}}","auth","register"],
-              "variable": []
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"User A\",\n  \"email\": \"{{userA_email}}\",\n  \"password\": \"{{userA_password}}\",\n  \"password_confirmation\": \"{{userA_password}}\"\n}"
-            }
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"status is 201\", function () {",
-                  "  pm.response.to.have.status(201);",
-                  "});",
-                  "var json = pm.response.json();",
-                  "if (json.token) {",
-                  "  pm.environment.set('tokenA', json.token);",
-                  "}",
-                  "if (json.user && json.user.id) {",
-                  "  pm.environment.set('userA_id', json.user.id);",
-                  "}"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        },
-        {
-          "name": "Register User B",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}{{api_prefix}}/auth/register",
-              "host": ["{{base_url}}"],
-              "path": ["{{api_prefix}}","auth","register"]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"User B\",\n  \"email\": \"{{userB_email}}\",\n  \"password\": \"{{userB_password}}\",\n  \"password_confirmation\": \"{{userB_password}}\"\n}"
-            }
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"status is 201\", function () {",
-                  "  pm.response.to.have.status(201);",
-                  "});",
-                  "var json = pm.response.json();",
-                  "if (json.token) {",
-                  "  pm.environment.set('tokenB', json.token);",
-                  "}",
-                  "if (json.user && json.user.id) {",
-                  "  pm.environment.set('userB_id', json.user.id);",
-                  "}"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        },
-        {
-          "name": "Login User A",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}{{api_prefix}}/auth/login",
-              "host": ["{{base_url}}"],
-              "path": ["{{api_prefix}}","auth","login"]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"{{userA_email}}\",\n  \"password\": \"{{userA_password}}\"\n}"
-            }
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"status is 200\", function () {",
-                  "  pm.response.to.have.status(200);",
-                  "});",
-                  "var json = pm.response.json();",
-                  "if (json.token) {",
-                  "  pm.environment.set('tokenA', json.token);",
-                  "}",
-                  "if (json.user && json.user.id) {",
-                  "  pm.environment.set('userA_id', json.user.id);",
-                  "}"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        },
-        {
-          "name": "Login User B",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}{{api_prefix}}/auth/login",
-              "host": ["{{base_url}}"],
-              "path": ["{{api_prefix}}","auth","login"]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"{{userB_email}}\",\n  \"password\": \"{{userB_password}}\"\n}"
-            }
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"status is 200\", function () {",
-                  "  pm.response.to.have.status(200);",
-                  "});",
-                  "var json = pm.response.json();",
-                  "if (json.token) {",
-                  "  pm.environment.set('tokenB', json.token);",
-                  "}",
-                  "if (json.user && json.user.id) {",
-                  "  pm.environment.set('userB_id', json.user.id);",
-                  "}"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        },
-        {
-          "name": "Me (User A)",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{tokenA}}"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}{{api_prefix}}/me",
-              "host": ["{{base_url}}"],
-              "path": ["{{api_prefix}}","me"]
-            }
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"status is 200\", function () {",
-                  "  pm.response.to.have.status(200);",
-                  "});",
-                  "var json = pm.response.json();",
-                  "pm.test('response has id', function(){",
-                  "  pm.expect(json).to.have.property('id');",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        },
-        {
-          "name": "Logout (User A)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{tokenA}}"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}{{api_prefix}}/auth/logout",
-              "host": ["{{base_url}}"],
-              "path": ["{{api_prefix}}","auth","logout"]
-            }
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"status 200 or 204\", function () {",
-                  "  pm.response.to.be.ok;",
-                  "});",
-                  "pm.environment.unset('tokenA');"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Workspace (User A)",
-      "item": [
-        {
-          "name": "Create Workspace",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{tokenA}}"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}{{api_prefix}}/workspaces",
-              "host": ["{{base_url}}"],
-              "path": ["{{api_prefix}}","workspaces"]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Test Workspace\"\n}"
-            }
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"status is 201\", function () {",
-                  "  pm.response.to.have.status(201);",
-                  "});",
-                  "var json = pm.response.json();",
-                  "if (json.data && json.data.id) {",
-                  "  pm.environment.set('workspace_id', json.data.id);",
-                  "}"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        },
-        {
-          "name": "List Workspaces",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{tokenA}}"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}{{api_prefix}}/workspaces",
-              "host": ["{{base_url}}"],
-              "path": ["{{api_prefix}}","workspaces"]
-            }
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"status is 200\", function () {",
-                  "  pm.response.to.have.status(200);",
-                  "});",
-                  "var json = pm.response.json();",
-                  "pm.test('data is array', function(){",
-                  "  pm.expect(json.data).to.be.an('array');",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        },
-        {
-          "name": "Get Workspace",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{tokenA}}"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}{{api_prefix}}/workspaces/{{workspace_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["{{api_prefix}}","workspaces","{{workspace_id}}"]
-            }
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"status is 200\", function () {",
-                  "  pm.response.to.have.status(200);",
-                  "});",
-                  "var json = pm.response.json();",
-                  "pm.test('has owner and members', function(){",
-                  "  pm.expect(json.data).to.have.property('owner');",
-                  "  pm.expect(json.data).to.have.property('members');",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        },
-        {
-          "name": "Update Workspace",
-          "request": {
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{tokenA}}"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}{{api_prefix}}/workspaces/{{workspace_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["{{api_prefix}}","workspaces","{{workspace_id}}"]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Test Workspace Updated\"\n}"
-            }
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"status is 200\", function () {",
-                  "  pm.response.to.have.status(200);",
-                  "});",
-                  "var json = pm.response.json();",
-                  "pm.test('name updated', function(){",
-                  "  pm.expect(json.data.name).to.eql('Test Workspace Updated');",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Workspace Membership + Role Rules",
-      "item": [
-        {
-          "name": "Get Workspace as User B BEFORE add (expect 403)",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{tokenB}}"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}{{api_prefix}}/workspaces/{{workspace_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["{{api_prefix}}","workspaces","{{workspace_id}}"]
-            }
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"status is 403\", function () {",
-                  "  pm.response.to.have.status(403);",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        },
-        {
-          "name": "Add Member (userB_email, role=member)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{tokenA}}"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}{{api_prefix}}/workspaces/{{workspace_id}}/members",
-              "host": ["{{base_url}}"],
-              "path": ["{{api_prefix}}","workspaces","{{workspace_id}}","members"]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"{{userB_email}}\",\n  \"role\": \"{{role_member}}\"\n}"
-            }
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"status 201 or 200\", function () {",
-                  "  pm.expect(pm.response.code === 201 || pm.response.code === 200).to.be.true;",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        },
-        {
-          "name": "Get Workspace as User B AFTER add (expect 200)",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{tokenB}}"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}{{api_prefix}}/workspaces/{{workspace_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["{{api_prefix}}","workspaces","{{workspace_id}}"]
-            }
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"status is 200\", function () {",
-                  "  pm.response.to.have.status(200);",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        },
-        {
-          "name": "Update Member Role to admin",
-          "request": {
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{tokenA}}"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}{{api_prefix}}/workspaces/{{workspace_id}}/members/{{userB_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["{{api_prefix}}","workspaces","{{workspace_id}}","members","{{userB_id}}"]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"role\": \"{{role_admin}}\"\n}"
-            }
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"status 200\", function () {",
-                  "  pm.response.to.have.status(200);",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        },
-        {
-          "name": "Duplicate Add Member (expect 409)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{tokenA}}"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}{{api_prefix}}/workspaces/{{workspace_id}}/members",
-              "host": ["{{base_url}}"],
-              "path": ["{{api_prefix}}","workspaces","{{workspace_id}}","members"]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"{{userB_email}}\",\n  \"role\": \"{{role_member}}\"\n}"
-            }
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"status is 409\", function () {",
-                  "  pm.response.to.have.status(409);",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        },
-        {
-          "name": "Remove Member",
-          "request": {
-            "method": "DELETE",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{tokenA}}"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}{{api_prefix}}/workspaces/{{workspace_id}}/members/{{userB_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["{{api_prefix}}","workspaces","{{workspace_id}}","members","{{userB_id}}"]
-            }
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"status is 200\", function () {",
-                  "  pm.response.to.have.status(200);",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        },
-        {
-          "name": "Get Workspace as User B AFTER removal (expect 403)",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{tokenB}}"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}{{api_prefix}}/workspaces/{{workspace_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["{{api_prefix}}","workspaces","{{workspace_id}}"]
-            }
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"status is 403\", function () {",
-                  "  pm.response.to.have.status(403);",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Projects (User A)",
-      "item": [
-        {
-          "name": "Create Project under Workspace",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{tokenA}}"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}{{api_prefix}}/workspaces/{{workspace_id}}/projects",
-              "host": ["{{base_url}}"],
-              "path": ["{{api_prefix}}","workspaces","{{workspace_id}}","projects"]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Test Project\"\n}"
-            }
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"status is 201\", function () {",
-                  "  pm.response.to.have.status(201);",
-                  "});",
-                  "var json = pm.response.json();",
-                  "if (json.data && json.data.id) {",
-                  "  pm.environment.set('project_id', json.data.id);",
-                  "}"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        },
-        {
-          "name": "List Projects under Workspace",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{tokenA}}"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}{{api_prefix}}/workspaces/{{workspace_id}}/projects",
-              "host": ["{{base_url}}"],
-              "path": ["{{api_prefix}}","workspaces","{{workspace_id}}","projects"]
-            }
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"status is 200\", function () {",
-                  "  pm.response.to.have.status(200);",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        },
-        {
-          "name": "Get Project",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{tokenA}}"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}{{api_prefix}}/projects/{{project_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["{{api_prefix}}","projects","{{project_id}}"]
-            }
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"status is 200\", function () {",
-                  "  pm.response.to.have.status(200);",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        },
-        {
-          "name": "Update Project",
-          "request": {
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{tokenA}}"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}{{api_prefix}}/projects/{{project_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["{{api_prefix}}","projects","{{project_id}}"]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Updated Project Name\"\n}"
-            }
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"status is 200\", function () {",
-                  "  pm.response.to.have.status(200);",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Tasks",
-      "item": [
-        {
-          "name": "Create Task under Project",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{tokenA}}"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}{{api_prefix}}/projects/{{project_id}}/tasks",
-              "host": ["{{base_url}}"],
-              "path": ["{{api_prefix}}","projects","{{project_id}}","tasks"]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"title\": \"Test Task 1\",\n  \"description\": \"A task for testing\",\n  \"status\": \"todo\",\n  \"priority\": \"medium\",\n  \"due_at\": \"2026-01-10T12:00:00Z\"\n}"
-            }
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"status is 201\", function () {",
-                  "  pm.response.to.have.status(201);",
-                  "});",
-                  "var json = pm.response.json();",
-                  "if (json.data && json.data.id) {",
-                  "  pm.environment.set('task_id', json.data.id);",
-                  "}"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        },
-        {
-          "name": "List Tasks with filters (status/priority/q)",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{tokenA}}"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}{{api_prefix}}/projects/{{project_id}}/tasks?status=todo&priority=medium&q=Test",
-              "host": ["{{base_url}}"],
-              "path": ["{{api_prefix}}","projects","{{project_id}}","tasks"],
-              "query": [
-                { "key": "status", "value": "todo" },
-                { "key": "priority", "value": "medium" },
-                { "key": "q", "value": "Test" }
-              ]
-            }
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"status is 200\", function () {",
-                  "  pm.response.to.have.status(200);",
-                  "});",
-                  "var json = pm.response.json();",
-                  "pm.test('has data array or docs', function(){",
-                  "  pm.expect(json.data || json.data === undefined).to.exist;",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        },
-        {
-          "name": "Get Task (should include comments + reminders)",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{tokenA}}"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}{{api_prefix}}/tasks/{{task_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["{{api_prefix}}","tasks","{{task_id}}"]
-            }
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"status is 200\", function () {",
-                  "  pm.response.to.have.status(200);",
-                  "});",
-                  "var json = pm.response.json();",
-                  "pm.test('data has comments and reminders arrays', function(){",
-                  "  pm.expect(json.data).to.have.property('comments');",
-                  "  pm.expect(json.data).to.have.property('reminders');",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        },
-        {
-          "name": "Update Task (status, priority, due_at)",
-          "request": {
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{tokenA}}"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}{{api_prefix}}/tasks/{{task_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["{{api_prefix}}","tasks","{{task_id}}"]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"status\": \"doing\",\n  \"priority\": \"high\",\n  \"due_at\": \"2026-01-11T12:00:00Z\"\n}"
-            }
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"status is 200\", function () {",
-                  "  pm.response.to.have.status(200);",
-                  "});",
-                  "var json = pm.response.json();",
-                  "pm.test('status updated', function(){",
-                  "  pm.expect(json.data.status).to.eql('doing');",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Comments",
-      "item": [
-        {
-          "name": "Add Comment (NOTE: controller/validator mismatch — see walkthrough)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{tokenA}}"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}{{api_prefix}}/tasks/{{task_id}}/comments",
-              "host": ["{{base_url}}"],
-              "path": ["{{api_prefix}}","tasks","{{task_id}}","comments"]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"content\": \"Nice job on this task\"\n}"
-            }
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "// The project currently has a mismatch: Request expects 'content' but controller uses 'body'.",
-                  "// If the endpoint is patched to use 'content' this test will expect 201.",
-                  "if (pm.response.code === 201) {",
-                  "  var json = pm.response.json();",
-                  "  if (json.data && json.data.id) { pm.environment.set('comment_id', json.data.id); }",
-                  "  pm.test('comment created', function(){ pm.expect(pm.response.code).to.eql(201); });",
-                  "} else {",
-                  "  // record the failure to help debugging",
-                  "  pm.test('expected 201 — got ' + pm.response.code, function(){",
-                  "    pm.expect(pm.response.code).to.oneOf([201]);",
-                  "  });",
-                  "}"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        },
-        {
-          "name": "Get Task and assert comment exists (if created)",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{tokenA}}"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}{{api_prefix}}/tasks/{{task_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["{{api_prefix}}","tasks","{{task_id}}"]
-            }
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"status is 200\", function () { pm.response.to.have.status(200); });",
-                  "var json = pm.response.json();",
-                  "if (pm.environment.get('comment_id')) {",
-                  "  var found = (json.data.comments || []).some(function(c){ return c.id == pm.environment.get('comment_id'); });",
-                  "  pm.test('comment present in task', function(){ pm.expect(found).to.be.true; });",
-                  "} else {",
-                  "  pm.test('no comment_id saved — skip presence assert', function(){ pm.expect(true).to.be.true; });",
-                  "}"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Reminders + Queue Test",
-      "item": [
-        {
-          "name": "Create Reminder (runs_at = now + 1 minute)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{tokenA}}"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}{{api_prefix}}/tasks/{{task_id}}/reminders",
-              "host": ["{{base_url}}"],
-              "path": ["{{api_prefix}}","tasks","{{task_id}}","reminders"]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"runs_at\": \"{{now_plus_1_minute}}\"\n}"
-            }
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [
-                  "// compute now_plus_1_minute if not set or if empty",
-                  "if (!pm.environment.get('now_plus_1_minute')) {",
-                  "  var dt = new Date(Date.now() + 60000);",
-                  "  pm.environment.set('now_plus_1_minute', dt.toISOString());",
-                  "}"
-                ],
-                "type": "text/javascript"
-              }
-            },
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"status is 201\", function () {",
-                  "  pm.response.to.have.status(201);",
-                  "});",
-                  "var json = pm.response.json();",
-                  "if (json.data && json.data.id) {",
-                  "  pm.environment.set('reminder_id', json.data.id);",
-                  "}"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        },
-        {
-          "name": "Manual: Wait 70s, then Get Task to check reminder.sent_at",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{tokenA}}"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}{{api_prefix}}/tasks/{{task_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["{{api_prefix}}","tasks","{{task_id}}"]
-            }
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"status is 200\", function () { pm.response.to.have.status(200); });",
-                  "var json = pm.response.json();",
-                  "if (pm.environment.get('reminder_id')) {",
-                  "  var found = (json.data.reminders || []).some(function(r){ return r.id == pm.environment.get('reminder_id') && r.sent_at; });",
-                  "  pm.test('reminder sent_at populated', function(){ pm.expect(found).to.be.true; });",
-                  "} else {",
-                  "  pm.test('no reminder_id saved — skip sent_at assert', function(){ pm.expect(true).to.be.true; });",
-                  "}"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        },
-        {
-          "name": "Notes: start queue worker + scheduler (manual)",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{base_url}}/",
-              "host": ["{{base_url}}"]
-            },
-            "description": "Manual note: Start queue worker and scheduler as noted in the TEST_WALKTHROUGH."
-          },
-          "response": []
-        }
-      ]
-    }
-  ]
+	"info": {
+		"_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+		"name": "Moeen API",
+		"description": "Complete Moeen API collection with auth, workspaces, projects, tasks, comments, and reminders",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register User A",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 201) {",
+									"    const response = pm.response.json();",
+									"    pm.environment.set('tokenA', response.token);",
+									"    pm.environment.set('userA_id', response.user.id);",
+									"    pm.environment.set('userA_email', response.user.email);",
+									"    pm.test('User A registered successfully', () => {",
+									"        pm.expect(response.token).to.be.a('string');",
+									"        pm.expect(response.user).to.have.property('id');",
+									"    });",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Alice Owner\",\n    \"email\": \"alice@moeen.test\",\n    \"password\": \"password123\",\n    \"password_confirmation\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register User B",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 201) {",
+									"    const response = pm.response.json();",
+									"    pm.environment.set('tokenB', response.token);",
+									"    pm.environment.set('userB_id', response.user.id);",
+									"    pm.environment.set('userB_email', response.user.email);",
+									"    pm.test('User B registered successfully', () => {",
+									"        pm.expect(response.token).to.be.a('string');",
+									"        pm.expect(response.user).to.have.property('id');",
+									"    });",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Bob Member\",\n    \"email\": \"bob@moeen.test\",\n    \"password\": \"password123\",\n    \"password_confirmation\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User A",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const response = pm.response.json();",
+									"    pm.environment.set('tokenA', response.token);",
+									"    pm.environment.set('token', response.token);",
+									"    pm.test('Login successful', () => {",
+									"        pm.expect(response.token).to.be.a('string');",
+									"    });",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"alice@moeen.test\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Current User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('User data retrieved', () => {",
+									"    const user = pm.response.json();",
+									"    pm.expect(user).to.have.property('id');",
+									"    pm.expect(user).to.have.property('email');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/me",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Logout successful', () => {",
+									"    pm.response.to.have.status(200);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('message');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/auth/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Workspaces",
+			"item": [
+				{
+					"name": "Create Workspace",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 201) {",
+									"    const response = pm.response.json();",
+									"    pm.environment.set('workspace_id', response.data.id);",
+									"    pm.test('Workspace created', () => {",
+									"        pm.expect(response.data).to.have.property('id');",
+									"        pm.expect(response.data).to.have.property('name');",
+									"    });",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set('token', pm.environment.get('tokenA'));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Alice's Workspace\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/workspaces",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"workspaces"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Workspaces",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Workspaces retrieved', () => {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.data).to.be.an('array');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/workspaces",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"workspaces"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show Workspace",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Workspace details retrieved', () => {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.data).to.have.property('id');",
+									"    pm.expect(response.data).to.have.property('owner');",
+									"    pm.expect(response.data).to.have.property('members');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/workspaces/{{workspace_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"workspaces",
+								"{{workspace_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Workspace",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Workspace updated', () => {",
+									"    pm.response.to.have.status(200);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.data.name).to.eql('Alice Updated Workspace');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Alice Updated Workspace\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/workspaces/{{workspace_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"workspaces",
+								"{{workspace_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Member",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Member added', () => {",
+									"    pm.response.to.have.status(201);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.message).to.include('Member added');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{userB_email}}\",\n    \"role\": \"member\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/workspaces/{{workspace_id}}/members",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"workspaces",
+								"{{workspace_id}}",
+								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Member - Duplicate (409)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Conflict error returned', () => {",
+									"    pm.response.to.have.status(409);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.message).to.include('already a member');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{userB_email}}\",\n    \"role\": \"member\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/workspaces/{{workspace_id}}/members",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"workspaces",
+								"{{workspace_id}}",
+								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Member Role",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Role updated', () => {",
+									"    pm.response.to.have.status(200);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.message).to.include('Role updated');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"role\": \"admin\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/workspaces/{{workspace_id}}/members/{{userB_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"workspaces",
+								"{{workspace_id}}",
+								"members",
+								"{{userB_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Member",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Member removed', () => {",
+									"    pm.response.to.have.status(200);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.message).to.include('Member removed');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/workspaces/{{workspace_id}}/members/{{userB_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"workspaces",
+								"{{workspace_id}}",
+								"members",
+								"{{userB_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Access Workspace as Non-Member (403)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set('token', pm.environment.get('tokenB'));"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Forbidden error returned', () => {",
+									"    pm.response.to.have.status(403);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.message).to.include('workspace member');",
+									"});",
+									"// Restore token",
+									"pm.environment.set('token', pm.environment.get('tokenA'));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/workspaces/{{workspace_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"workspaces",
+								"{{workspace_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Projects",
+			"item": [
+				{
+					"name": "Create Project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 201) {",
+									"    const response = pm.response.json();",
+									"    pm.environment.set('project_id', response.data.id);",
+									"    pm.test('Project created', () => {",
+									"        pm.expect(response.data).to.have.property('id');",
+									"        pm.expect(response.data.name).to.eql('MVP Launch');",
+									"    });",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"MVP Launch\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/workspaces/{{workspace_id}}/projects",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"workspaces",
+								"{{workspace_id}}",
+								"projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Projects",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Projects retrieved', () => {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.data).to.be.an('array');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/workspaces/{{workspace_id}}/projects",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"workspaces",
+								"{{workspace_id}}",
+								"projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show Project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Project details retrieved', () => {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.data).to.have.property('id');",
+									"    pm.expect(response.data).to.have.property('tasks_count');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/projects/{{project_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"{{project_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Project updated', () => {",
+									"    pm.response.to.have.status(200);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.data.name).to.eql('MVP Launch v2');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"MVP Launch v2\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/projects/{{project_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"{{project_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Project deleted', () => {",
+									"    pm.response.to.have.status(200);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.message).to.include('Project deleted');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/projects/{{project_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"{{project_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tasks",
+			"item": [
+				{
+					"name": "Recreate Project for Tasks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 201) {",
+									"    const response = pm.response.json();",
+									"    pm.environment.set('project_id', response.data.id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"MVP Launch\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/workspaces/{{workspace_id}}/projects",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"workspaces",
+								"{{workspace_id}}",
+								"projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Task - High Priority",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 201) {",
+									"    const response = pm.response.json();",
+									"    pm.environment.set('task_id', response.data.id);",
+									"    pm.test('Task created', () => {",
+									"        pm.expect(response.data).to.have.property('id');",
+									"        pm.expect(response.data.title).to.eql('Setup CI/CD Pipeline');",
+									"        pm.expect(response.data.status).to.eql('pending');",
+									"        pm.expect(response.data.priority).to.eql('high');",
+									"    });",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Setup CI/CD Pipeline\",\n    \"description\": \"Configure GitHub Actions for automated testing and deployment\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"due_at\": \"2026-01-15\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/projects/{{project_id}}/tasks",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"{{project_id}}",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Task - Medium Priority",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 201) {",
+									"    const response = pm.response.json();",
+									"    pm.environment.set('task2_id', response.data.id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Write API Documentation\",\n    \"description\": \"Document all REST endpoints with examples\",\n    \"priority\": \"medium\",\n    \"due_at\": \"2026-01-20\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/projects/{{project_id}}/tasks",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"{{project_id}}",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Tasks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Tasks retrieved with pagination', () => {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('data');",
+									"    pm.expect(response.data).to.be.an('array');",
+									"    pm.expect(response).to.have.property('current_page');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/projects/{{project_id}}/tasks",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"{{project_id}}",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Tasks - Filter by Status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Filtered tasks retrieved', () => {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.data).to.be.an('array');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/projects/{{project_id}}/tasks?status=pending",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"{{project_id}}",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "pending"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Tasks - Filter by Priority",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('High priority tasks retrieved', () => {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.data).to.be.an('array');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/projects/{{project_id}}/tasks?priority=high",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"{{project_id}}",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "priority",
+									"value": "high"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Tasks - Search by Title",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Search results retrieved', () => {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.data).to.be.an('array');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/projects/{{project_id}}/tasks?q=CI",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"{{project_id}}",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "CI"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show Task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Task details retrieved', () => {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.data).to.have.property('id');",
+									"    pm.expect(response.data).to.have.property('comments');",
+									"    pm.expect(response.data).to.have.property('reminders');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/tasks/{{task_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"{{task_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Task - Change Status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Task status updated', () => {",
+									"    pm.response.to.have.status(200);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.data.status).to.eql('in_progress');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"in_progress\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/tasks/{{task_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"{{task_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Task - Complete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Task completed', () => {",
+									"    pm.response.to.have.status(200);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.data.status).to.eql('completed');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"completed\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/tasks/{{task_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"{{task_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Task deleted', () => {",
+									"    pm.response.to.have.status(200);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.message).to.include('Task deleted');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/tasks/{{task2_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"{{task2_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comments",
+			"item": [
+				{
+					"name": "Add Comment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 201) {",
+									"    const response = pm.response.json();",
+									"    pm.environment.set('comment_id', response.data.id);",
+									"    pm.test('Comment added', () => {",
+									"        pm.expect(response.data).to.have.property('id');",
+									"        pm.expect(response.data.content).to.include('Started working');",
+									"    });",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\": \"Started working on the pipeline setup. Will use GitHub Actions.\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/tasks/{{task_id}}/comments",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"{{task_id}}",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reminders",
+			"item": [
+				{
+					"name": "Create Reminder",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Calculate 1 minute from now",
+									"const now = new Date();",
+									"now.setMinutes(now.getMinutes() + 1);",
+									"const isoString = now.toISOString();",
+									"pm.environment.set('now_plus_1_minute', isoString);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 201) {",
+									"    const response = pm.response.json();",
+									"    pm.environment.set('reminder_id', response.data.id);",
+									"    pm.test('Reminder created', () => {",
+									"        pm.expect(response.data).to.have.property('id');",
+									"        pm.expect(response.data).to.have.property('runs_at');",
+									"        pm.expect(response.data.sent_at).to.be.null;",
+									"    });",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"runs_at\": \"{{now_plus_1_minute}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/tasks/{{task_id}}/reminders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"{{task_id}}",
+								"reminders"
+							]
+						},
+						"description": "Note: Ensure queue worker is running to process reminders"
+					},
+					"response": []
+				}
+			]
+		}
+	]
 }

@@ -6,6 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Workspace extends Model
 {
+    protected $fillable = ['owner_id', 'name'];
+
+    protected function casts(): array
+    {
+        return [
+            'created_at' => 'datetime',
+            'updated_at' => 'datetime',
+        ];
+    }
     public function owner()
     {   
         // this workspace belongs to a user who is the owner
@@ -14,7 +23,7 @@ class Workspace extends Model
     public function members()
     {
         // this workspace has many users through the pivot table workspace_user
-        return $this->belongsToMany(User::class)->withPivot('role')->withTimestamps();
+        return $this->belongsToMany(User::class, 'workspace_user')->withPivot('role')->withTimestamps();
     }
     public function projects()
     {

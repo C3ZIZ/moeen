@@ -15,7 +15,7 @@ class CommentController extends BaseApiController
 
         $comment = $task->comments()->create([
             'user_id' => $user->id,
-            'body' => $request->validated()['body'],
+            'content' => $request->validated()['content'],
         ]);
 
         return response()->json(['data' => $comment], 201);

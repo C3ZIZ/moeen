@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->timestamp('sent_at')->nullable();
             $table->timestamps();
 
+            $table->index('task_id');
             $table->index(['sent_at', 'runs_at']);
         });
 

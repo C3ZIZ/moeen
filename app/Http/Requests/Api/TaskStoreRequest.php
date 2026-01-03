@@ -24,7 +24,7 @@ class TaskStoreRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:160'],
             'description' => ['nullable', 'string'],
-            'status' => ['sometimes', 'in:todo,doing,done'],
+            'status' => ['sometimes', 'in:pending,in_progress,completed'],
             'priority' => ['sometimes', 'in:low,medium,high'],
             'due_at' => ['nullable', 'date'],
         ];

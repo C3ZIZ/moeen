@@ -54,4 +54,11 @@ class User extends Authenticatable
     {
         return $this->is_admin;
     }
+
+    public function workspaces()
+    {
+        return $this->belongsToMany(Workspace::class, 'workspace_user')
+            ->withPivot('role')
+            ->withTimestamps();
+    }
 }
