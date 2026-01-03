@@ -2,10 +2,22 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Task;
+use App\Http\Requests\Api\CommentStoreRequest;
 
-class CommentController extends Controller
+class CommentController extends BaseApiController
 {
-    //
+    public function store(CommentStoreRequest $request, Task $task)
+    {
+        $user = $request->user();
+        $workspace = $this->workspaceFromTask($task);
+        $this->requireWorkspaceMember($user, $workspace);
+
+        $comment = $task->comments()->create([
+            'user_id' => $user->id,
+            'body' => $request->validated()['body'],
+        ]);
+
+        return response()->json(['data' => $comment], 201);
+    }
 }
